@@ -240,7 +240,7 @@ This project demonstrates mastery of:
 - User experience optimization
 - Modern React development practices
 
-## 📝 Notes for Tutor
+## 📝 Notes 
 
 This implementation goes beyond the basic requirements by providing:
 1. **Comprehensive CRUD operations** for both API and local state

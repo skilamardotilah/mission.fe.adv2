@@ -228,7 +228,7 @@ const ListView = () => {
                           className="w-full p-2 border rounded"
                         />
                       </div>
-                      <div>
+    <div>
                         <label className="block text-sm font-medium mb-1">Note:</label>
                         <input 
                           type="text" 
@@ -284,10 +284,10 @@ const ListView = () => {
                   ></div>
                 </div>
               </div>
-            ))
-          ) : (
+          ))
+        ) : (
             <p className="text-gray-500">No watch progress data</p>
-          )}
+        )}
         </div>
       </div>
     </div>
