@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global styles */
+:root {
+  --card: #10172a;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+.container {
+  @apply max-w-6xl mx-auto px-4;
+}
+.card {
+  @apply bg-[color:var(--card)] rounded-3xl p-6 shadow;
+}
+.btn {
+  @apply inline-flex items-center justify-center rounded-xl px-4 py-2 font-medium bg-brand-primary text-white hover:opacity-90;
+}
+.input {
+  @apply w-full rounded-xl px-4 py-2 bg-slate-800/60 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-primary;
+}
+/* hide horizontal scrollbar (opsional) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+@layer base {
+  html,
+  body,
+  #root {
+    width: 100%;
+    min-height: 100%;
+    zoom: 1 !important; /* pastikan skala 100% di Chrome */
+    transform: none !important; /* kalau ada transform terselip */
+  }
+
+  /* cegah text auto-scaling di mobile */
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+}
