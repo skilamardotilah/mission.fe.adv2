@@ -103,11 +103,9 @@ export default function FilmDetailPopup({ item, onClose, onAddToWatchlist, onRem
                         Hapus
                       </button>
                     ) : (
-                      !hasWatchProgress && (
-                        <button onClick={handleAddToWatchlist} className="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-full text-white font-semibold">
-                          {isInWatchlist(item) ? '✓' : '+'}
-                        </button>
-                      )
+                      <button onClick={handleAddToWatchlist} className="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-full text-white font-semibold">
+                        {isInWatchlist(item) ? '✓' : '+'}
+                      </button>
                     )}
 
                     {/* Premium Button (only for series) */}
