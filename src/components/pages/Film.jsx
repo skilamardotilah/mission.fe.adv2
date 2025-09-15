@@ -20,8 +20,11 @@ export default function Film() {
   const { films, loading, error, getFilms } = useFilms();
 
   useEffect(() => {
-    getFilms();
-  }, [getFilms]);
+    // Only fetch if we don't have films or cache is expired
+    if (films.length === 0) {
+      getFilms();
+    }
+  }, [getFilms, films.length]);
 
   const toItem = (f) => ({
     src: f.image,
@@ -86,9 +89,40 @@ export default function Film() {
     dispatch(deleteExistingFilm(films[0].id));
   };
 
-  if (loading) return <div className="bg-[#181A1C] text-white p-8">Loading…</div>;
-  if (error) return <div className="bg-[#181A1C] text-white p-8">Error: {error}</div>;
-  if (!films.length) return <div className="bg-[#181A1C] text-white p-8">No film data found.</div>;
+  if (loading) {
+    return (
+      <div className="bg-[#181A1C] text-white font-lato min-h-screen">
+        <Navbar />
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+            <p className="text-lg">Loading films...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+  
+  if (error) {
+    return (
+      <div className="bg-[#181A1C] text-white font-lato min-h-screen">
+        <Navbar />
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-center">
+            <p className="text-red-400 text-lg mb-4">Error loading films: {error}</p>
+            <button 
+              onClick={() => getFilms()} 
+              className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-[#181A1C] text-white font-lato min-h-screen">

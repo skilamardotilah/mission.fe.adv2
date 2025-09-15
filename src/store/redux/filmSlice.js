@@ -6,17 +6,27 @@ const initialState = {
   films: [],
   loading: false,
   error: null,
+  lastFetch: null,
+  cacheExpiry: 5 * 60 * 1000, // 5 minutes cache
 };
 
 // Async Thunks
 export const fetchFilms = createAsyncThunk(
   'films/fetchFilms',
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, getState }) => {
     try {
+      const state = getState();
+      const { lastFetch, cacheExpiry, films } = state.films;
+      
+      // Check if we have cached data and it's still valid
+      if (films.length > 0 && lastFetch && (Date.now() - lastFetch) < cacheExpiry) {
+        return films; // Return cached data
+      }
+      
       const response = await getFilms();
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error.message || 'Failed to fetch films');
     }
   }
 );
@@ -76,6 +86,7 @@ const filmSlice = createSlice({
       .addCase(fetchFilms.fulfilled, (state, action) => {
         state.loading = false;
         state.films = action.payload;
+        state.lastFetch = Date.now();
       })
       .addCase(fetchFilms.rejected, (state, action) => {
         state.loading = false;
